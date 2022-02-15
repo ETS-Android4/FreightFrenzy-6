@@ -195,7 +195,7 @@ public class  AutonomousParent extends LinearOpMode {
                 break;
             case RED_OUTSIDE_PARK:
             case RED_OUTSIDE:
-
+//
                 //moves to avoid shipping element
                 if(position== ObjectDetector.Location.MID){
                     drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 50, 0.5);
