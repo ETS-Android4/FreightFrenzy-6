@@ -25,6 +25,8 @@ public class Moby {
 //    //IMU
     public static IMU imu;
 
+    public static SensorColor colorSensor;
+
     public static Spinner spinner;
 
     public static Claw claw;
@@ -79,9 +81,11 @@ public class Moby {
         claw = new Claw();
         imu = new IMU();
         sensors = new Sensors();
+        colorSensor = new SensorColor();
 
         spinner.init(hardwareMap);
 
+        colorSensor.init(hardwareMap);
 
         claw.init(hardwareMap);
 
