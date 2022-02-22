@@ -31,6 +31,8 @@ public class Moby {
 
     public static Claw claw;
 
+    public static Roller roller;
+
 
     // Motor array [in order: lf, lr, rf, rr]
     public static ArrayList<DcMotor> driveMotors = new ArrayList<>();
@@ -82,6 +84,8 @@ public class Moby {
         imu = new IMU();
         sensors = new Sensors();
         colorSensor = new SensorColor();
+        roller = new Roller();
+
 
         spinner.init(hardwareMap);
 
@@ -93,6 +97,7 @@ public class Moby {
 
         sensors.init();
 
+        roller.init(hardwareMap);
 
     }
 

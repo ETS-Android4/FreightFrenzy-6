@@ -14,6 +14,8 @@ public class  TeleOpParent extends LinearOpMode {
     // Set default DriveType
     DriveStyle.DriveType type = DriveStyle.DriveType.MECANUMARCADE;
 
+    boolean ground = false;//going bottom or not
+
 
     double slow = 0.6;
     private DriveSensor drivetrain2 = new DriveSensor(Moby.driveMotors);
@@ -97,17 +99,21 @@ public class  TeleOpParent extends LinearOpMode {
             //changes claw position on controller input
             if(gamepad1.a||gamepad2.a){
                 Moby.claw.moveMover(Claw.TurnValue.GROUND);
+                ground = true;
             }
 
             if(gamepad1.x||gamepad2.x){
+                Moby.roller.retract();
                 Moby.claw.moveMover(Claw.TurnValue.BOTTOM);
             }
 
             if(gamepad1.y||gamepad2.y){
+                Moby.roller.retract();
                 Moby.claw.moveMover(Claw.TurnValue.MID);
             }
 
             if(gamepad1.b||gamepad2.b){
+                Moby.roller.retract();
                 Moby.claw.moveMover(Claw.TurnValue.TOP);
             }
 
@@ -130,12 +136,24 @@ public class  TeleOpParent extends LinearOpMode {
 
             }
 
+            if(gamepad1.dpad_left||gamepad2.dpad_right){
+                Moby.roller.roll();
+            }
 
             //to stop mover once it has reached its target position
             if(!Moby.claw.isBusy()){
-                Moby.claw.stopMover();
-//                telemetry.addData("Stopped", "");
-//                telemetry.update();
+                if(ground){
+                    ground = false;
+                    Moby.claw.stopMover();
+                    Moby.roller.moveToPosition();
+                }else{
+                    Moby.claw.stopMover();
+                }
+            }
+
+            //to stop roller once it has reached its target position
+            if(!Moby.roller.isBusy()){
+                Moby.roller.stopMover();
             }
 
 
