@@ -3,12 +3,16 @@ package org.firstinspires.ftc.teamcode.component;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 public class SensorColor {
 
     private ColorSensor colorSensor;
+    private DistanceSensor distanceSensor;
 
     private float hsvValues[] = {0F,0F,0F};
 
@@ -21,6 +25,8 @@ public class SensorColor {
     public void init(HardwareMap hardwareMap) {
         colorSensor = hardwareMap.get(ColorSensor.class, "color");
         colorSensor.enableLed(true);
+
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "color");
     }
 
     public boolean matches(){
@@ -46,4 +52,9 @@ public class SensorColor {
     public float getValue(){
         return hsvValues[2];
     }
+
+    public boolean intakeSuccessful(){
+        return distanceSensor.getDistance(DistanceUnit.CM)<4;
+    }
+
 }

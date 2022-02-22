@@ -56,17 +56,17 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
 
-            if(Moby.colorSensor.matches()){
+            if(Moby.colorSensor.intakeSuccessful()){
                 //change indication
                 Moby.spinner.spin();
                 sleep(1000);
                 Moby.spinner.stop();
             }
 
-            telemetry.addData("Hue", Moby.colorSensor.getHue());
-            telemetry.addData("Saturation", Moby.colorSensor.getSaturation());
-            telemetry.addData("Value", Moby.colorSensor.getValue());
-            telemetry.update();
+//            telemetry.addData("Hue", Moby.colorSensor.getHue());
+//            telemetry.addData("Saturation", Moby.colorSensor.getSaturation());
+//            telemetry.addData("Value", Moby.colorSensor.getValue());
+//            telemetry.update();
 
             //to switch between slow mode, normal mode, and fast mode
             if(gamepad2.left_stick_button){
