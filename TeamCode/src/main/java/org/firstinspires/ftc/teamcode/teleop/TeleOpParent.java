@@ -15,10 +15,13 @@ public class  TeleOpParent extends LinearOpMode {
     DriveStyle.DriveType type = DriveStyle.DriveType.MECANUMARCADE;
 
     boolean ground = false;//going bottom or not
+    boolean captured = true;//whether intake was successful or not
 
 
     double slow = 0.6;
     private DriveSensor drivetrain2 = new DriveSensor(Moby.driveMotors);
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -58,17 +61,24 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
 
-            if(Moby.colorSensor.intakeSuccessful()){
+            if(Moby.colorSensor.intakeSuccessful()&&captured){
+                captured = false;
                 //change indication
                 Moby.spinner.spin();
                 sleep(1000);
                 Moby.spinner.stop();
             }
 
-//            telemetry.addData("Hue", Moby.colorSensor.getHue());
-//            telemetry.addData("Saturation", Moby.colorSensor.getSaturation());
-//            telemetry.addData("Value", Moby.colorSensor.getValue());
-//            telemetry.update();
+            if(!captured && !Moby.colorSensor.intakeSuccessful()){
+                captured = true;
+            }
+
+//
+            telemetry.addData("Distance", Moby.colorSensor.getDistance());
+//            telemetry.addData("Red", Moby.colorSensor.getRed());
+//            telemetry.addData("Green", Moby.colorSensor.getBlue());
+//            telemetry.addData("Blue", Moby.colorSensor.getGreen());
+            telemetry.update();
 
             //to switch between slow mode, normal mode, and fast mode
             if(gamepad2.left_stick_button){
@@ -136,8 +146,10 @@ public class  TeleOpParent extends LinearOpMode {
 
             }
 
-            if(gamepad1.dpad_left||gamepad2.dpad_right){
+            if(gamepad1.dpad_left||gamepad2.dpad_left){
                 Moby.roller.roll();
+            }else{
+                Moby.roller.stopRolling();
             }
 
             //to stop mover once it has reached its target position

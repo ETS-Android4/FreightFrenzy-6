@@ -78,7 +78,7 @@ public class Claw {
         }
 
         //sets power and mode
-        mover.setPower(multiplier * 0.55);
+        mover.setPower(multiplier * 0.6);
         mover.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //garbage way to determine when to stop mover

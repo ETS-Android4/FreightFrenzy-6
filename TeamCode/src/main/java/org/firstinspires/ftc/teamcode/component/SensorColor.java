@@ -14,13 +14,15 @@ public class SensorColor {
     private ColorSensor colorSensor;
     private DistanceSensor distanceSensor;
 
-    private float hsvValues[] = {0F,0F,0F};
+    private float colorValues[] = {0F,0F,0F};
 
-    private float lowerLimitBrick[] = {0F,0F,0F};
-    private float upperLimitBrick[] = {0F,0F,0F};
+    private float lowerLimitBrick[] = {6F,0F,5F};
+    private float upperLimitBrick[] = {9F,2F,8F};
 
-    private float lowerLimitBall[] = {0F,0F,0F};
-    private float upperLimitBall[] = {0F,0F,0F};
+    private float lowerLimitBall[] = {7F,2F,7F};
+    private float upperLimitBall[] = {11F,4F,12F};
+
+    private final double DISTANCE = 2;
 
     public void init(HardwareMap hardwareMap) {
         colorSensor = hardwareMap.get(ColorSensor.class, "color");
@@ -30,10 +32,10 @@ public class SensorColor {
     }
 
     public boolean matches(){
-        Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+        Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, colorValues);
         boolean matches = true;
         for(int i=0;i<3;i++){
-            if((hsvValues[i]<lowerLimitBrick[i]||hsvValues[i]>upperLimitBrick[i])&&(hsvValues[i]<lowerLimitBall[i]||hsvValues[i]>upperLimitBall[i])){
+            if((colorValues[i]<lowerLimitBrick[i]||colorValues[i]>upperLimitBrick[i])&&(colorValues[i]<lowerLimitBall[i]||colorValues[i]>upperLimitBall[i])){
                 matches = false;
             }
 
@@ -41,20 +43,24 @@ public class SensorColor {
         return matches;
     }
 
-    public float getHue(){
-        return hsvValues[0];
+    public float getBlue(){
+        return colorSensor.blue();
     }
 
-    public float getSaturation(){
-        return hsvValues[1];
+    public float getRed(){
+        return colorSensor.red();
     }
 
-    public float getValue(){
-        return hsvValues[2];
+    public float getGreen(){
+        return colorSensor.green();
     }
 
     public boolean intakeSuccessful(){
-        return distanceSensor.getDistance(DistanceUnit.CM)<4;
+        return distanceSensor.getDistance(DistanceUnit.CM)<DISTANCE;
+    }
+
+    public double getDistance(){
+        return distanceSensor.getDistance(DistanceUnit.CM);
     }
 
 }

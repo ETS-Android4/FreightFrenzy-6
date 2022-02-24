@@ -9,7 +9,7 @@ public class Roller {
 
     //roller
     private DcMotor rollerArm;
-    private CRServo roller;
+    private DcMotor roller;
 
     //constants for roller position
     private final int RETRACTED = 0;
@@ -29,7 +29,7 @@ public class Roller {
         rollerArm = hardwareMap.get(DcMotor.class, "rollerArm");
         rollerArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        roller = hardwareMap.get(CRServo.class, "roller");
+        roller = hardwareMap.get(DcMotor.class, "roller");
 
         rollerArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -38,6 +38,10 @@ public class Roller {
 
     public void stopMover(){
         rollerArm.setPower(0);
+    }
+
+    public void stopRolling(){
+        roller.setPower(0);
     }
 
     public int getTicks(){
