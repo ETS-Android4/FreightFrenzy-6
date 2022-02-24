@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.component.Claw;
+import org.firstinspires.ftc.teamcode.component.Arm;
+import org.firstinspires.ftc.teamcode.component.Intake;
 import org.firstinspires.ftc.teamcode.component.ObjectDetector;
 import org.firstinspires.ftc.teamcode.core.Moby;
 import org.firstinspires.ftc.teamcode.library.DriveAuto;
@@ -114,12 +115,13 @@ public class  AutonomousParent extends LinearOpMode {
 
                 //drops pre-load
                 sleep(1000);
-                Moby.claw.openClaw();
+                Moby.intake.out();
+                sleep(1000);
+                Moby.intake.stopSpinner();
                 sleep(1000);
                 drivetrain.move(DriveAuto.MoveDirection.BACKWARD, LOW_POWER, 0.45);
                 sleep(500);
-                Moby.claw.moveMover(Claw.TurnValue.MID);
-                Moby.claw.closeClaw();
+                Moby.arm.moveArm(Arm.TurnValue.MID);
                 break;
             case BLUE_INSIDE:
                 //alignment
@@ -137,12 +139,13 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain.move(DriveAuto.MoveDirection.FORWARD, LOW_POWER, 0.35);
                 sleep(1000);
                 //drops pre-load
-                Moby.claw.openClaw();
+                Moby.intake.out();
+                sleep(1000);
+                Moby.intake.stopSpinner();
                 sleep(1000);
                 drivetrain.move(DriveAuto.MoveDirection.BACKWARD, LOW_POWER, 0.45);
                 sleep(500);
-                Moby.claw.moveMover(Claw.TurnValue.MID);
-                Moby.claw.closeClaw();
+                Moby.arm.moveArm(Arm.TurnValue.MID);
                 break;
             case BLUE_OUTSIDE_PARK:
             case BLUE_OUTSIDE:
@@ -186,12 +189,13 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 98, 0.2);
                 sleep(1000);
                 //drops pre-load
-                Moby.claw.openClaw();
+                Moby.intake.out();
+                sleep(1000);
+                Moby.intake.stopSpinner();
                 sleep(1000);
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 90, LOW_POWER);
                 sleep(500);
                 moveGripperBack();
-                Moby.claw.closeClaw();
                 break;
             case RED_OUTSIDE_PARK:
             case RED_OUTSIDE:
@@ -222,12 +226,13 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 98, 0.2);
                 sleep(1000);
                 //drops pre-load
-                Moby.claw.openClaw();
+                Moby.intake.out();
+                sleep(1000);
+                Moby.intake.stopSpinner();
                 sleep(1000);
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 90, LOW_POWER);
                 sleep(500);
                 moveGripperBack();
-                Moby.claw.closeClaw();
 
                 break;
 
@@ -454,47 +459,47 @@ public class  AutonomousParent extends LinearOpMode {
         switch (position) {
             case RIGHT:
                     for(int i=0;i<3;i++){
-                        Moby.claw.moveMover(Claw.TurnValue.TOP);
-                        while(Moby.claw.isBusy()){
+                        Moby.arm.moveArm(Arm.TurnValue.TOP);
+                        while(Moby.arm.isBusy()){
 
                         }
-                        Moby.claw.stopMover();
+                        Moby.arm.stopArm();
                     }
 
 
                 for(int i=0;i<1;i++){
-                    Moby.claw.moveUp();
-                    while(Moby.claw.isBusy()){
+                    Moby.arm.moveUp();
+                    while(Moby.arm.isBusy()){
 
                     }
-                    Moby.claw.stopMover();
+                    Moby.arm.stopArm();
                 }
 
                 break;
             case LEFT:
                     for(int i=0;i<3;i++){
-                        Moby.claw.moveMover(Claw.TurnValue.BOTTOM);
-                        while(Moby.claw.isBusy()){
+                        Moby.arm.moveArm(Arm.TurnValue.BOTTOM);
+                        while(Moby.arm.isBusy()){
 
                         }
-                        Moby.claw.stopMover();
+                        Moby.arm.stopArm();
                     }
 
                 for(int i=0;i<1;i++){
-                    Moby.claw.moveUp();
-                    while(Moby.claw.isBusy()){
+                    Moby.arm.moveUp();
+                    while(Moby.arm.isBusy()){
 
                     }
-                    Moby.claw.stopMover();
+                    Moby.arm.stopArm();
                 }
                 break;
             case MID:
                 for(int i=0;i<3;i++){
-                    Moby.claw.moveMover(Claw.TurnValue.MID);
-                    while(Moby.claw.isBusy()){
+                    Moby.arm.moveArm(Arm.TurnValue.MID);
+                    while(Moby.arm.isBusy()){
 
                     }
-                    Moby.claw.stopMover();
+                    Moby.arm.stopArm();
                 }
                 break;
         }
@@ -502,11 +507,11 @@ public class  AutonomousParent extends LinearOpMode {
 
     //moves gripper to original position
     public void moveGripperBack(){
-        Moby.claw.moveMover(Claw.TurnValue.GROUND);
-        while(Moby.claw.isBusy()){
+        Moby.arm.moveArm(Arm.TurnValue.GROUND);
+        while(Moby.arm.isBusy()){
 
         }
-        Moby.claw.stopMover();
+        Moby.arm.stopArm();
     }
 
 

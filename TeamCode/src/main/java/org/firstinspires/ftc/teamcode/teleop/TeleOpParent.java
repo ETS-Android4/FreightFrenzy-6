@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.component.Claw;
+import org.firstinspires.ftc.teamcode.component.Arm;
 import org.firstinspires.ftc.teamcode.core.*;
 import org.firstinspires.ftc.teamcode.library.DriveSensor;
 import org.firstinspires.ftc.teamcode.library.DriveStyle;
@@ -14,7 +14,7 @@ public class  TeleOpParent extends LinearOpMode {
     // Set default DriveType
     DriveStyle.DriveType type = DriveStyle.DriveType.MECANUMARCADE;
 
-    boolean ground = false;//going bottom or not
+
     boolean captured = true;//whether intake was successful or not
 
 
@@ -108,65 +108,45 @@ public class  TeleOpParent extends LinearOpMode {
 
             //changes claw position on controller input
             if(gamepad1.a||gamepad2.a){
-                Moby.claw.moveMover(Claw.TurnValue.GROUND);
-                ground = true;
+                Moby.arm.moveArm(Arm.TurnValue.GROUND);
             }
 
             if(gamepad1.x||gamepad2.x){
-                Moby.roller.retract();
-                Moby.claw.moveMover(Claw.TurnValue.BOTTOM);
+                Moby.arm.moveArm(Arm.TurnValue.BOTTOM);
             }
 
             if(gamepad1.y||gamepad2.y){
-                Moby.roller.retract();
-                Moby.claw.moveMover(Claw.TurnValue.MID);
+                Moby.arm.moveArm(Arm.TurnValue.MID);
             }
 
             if(gamepad1.b||gamepad2.b){
-                Moby.roller.retract();
-                Moby.claw.moveMover(Claw.TurnValue.TOP);
+                Moby.arm.moveArm(Arm.TurnValue.TOP);
             }
 
 
             //makes small increments or decrements to claw position
             if(gamepad1.right_trigger >= 0.1 || gamepad2.right_trigger >= 0.1) {
-                Moby.claw.moveUp();
+                Moby.arm.moveUp();
             }
             if(gamepad1.left_trigger >= 0.1 || gamepad2.left_trigger >= 0.1) {
-                Moby.claw.moveDown();
+                Moby.arm.moveDown();
             }
 
-            if(gamepad1.right_bumper||gamepad2.right_bumper){
-                Moby.claw.closeClaw();
-
-            }
-
-            if(gamepad1.left_bumper||gamepad2.left_bumper){
-                Moby.claw.openClaw();
-
-            }
-
-            if(gamepad1.dpad_left||gamepad2.dpad_left){
-                Moby.roller.roll();
+            if(gamepad1.right_bumper||gamepad2.right_bumper) {
+                Moby.intake.out();
+            }else if(gamepad1.left_bumper||gamepad2.left_bumper){
+                Moby.intake.in();
             }else{
-                Moby.roller.stopRolling();
+                Moby.intake.stopSpinner();
             }
+
 
             //to stop mover once it has reached its target position
-            if(!Moby.claw.isBusy()){
-                if(ground){
-                    ground = false;
-                    Moby.claw.stopMover();
-                    Moby.roller.moveToPosition();
-                }else{
-                    Moby.claw.stopMover();
-                }
+            if(!Moby.arm.isBusy()){
+                    Moby.arm.stopArm();
             }
 
-            //to stop roller once it has reached its target position
-            if(!Moby.roller.isBusy()){
-                Moby.roller.stopMover();
-            }
+
 
 
         }

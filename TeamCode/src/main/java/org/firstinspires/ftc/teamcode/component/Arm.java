@@ -1,24 +1,20 @@
 package org.firstinspires.ftc.teamcode.component;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Claw {
+public class Arm {
 
     //spinner
-    private DcMotor mover;
-    private Servo gripper;
+    private DcMotor arm;
 
     //constants for each shipping hub level
     private final int TOP = 2016;
     private final int MID = 1156;
     private final int BOTTOM = 402;
     private final int GROUND = 0;
-
-    //constants for claw servo
-    private final double CLOSE = 0.3;
-    private final double OPEN = 0;
 
 
 
@@ -27,59 +23,56 @@ public class Claw {
 
     //init
     public void init(HardwareMap hardwareMap){
-        mover = hardwareMap.get(DcMotor.class, "claw");
-        mover.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm = hardwareMap.get(DcMotor.class, "claw");
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        gripper = hardwareMap.get(Servo.class, "s1");
-
-        gripper.setPosition(CLOSE);
 //        mover.setDirection(DcMotorSimple.Direction.REVERSE);
-        mover.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
     }
 
-    public void stopMover(){
-        mover.setPower(0);
+    public void stopArm(){
+        arm.setPower(0);
     }
 
     public int getTicks(){
-        return mover.getCurrentPosition();
+        return arm.getCurrentPosition();
     }
 
     //takes in input location
-    public void moveMover(TurnValue location){
+    public void moveArm(TurnValue location){
         int multiplier = 1;//positive if the claw needs to go up, negative if it needs to go down
 
 
         if(location == TurnValue.BOTTOM){
             //determines multiplier based on current position
-            if(mover.getCurrentPosition()>BOTTOM){
+            if(arm.getCurrentPosition()>BOTTOM){
                 multiplier = -1;
             }
             //sets target position
-            mover.setTargetPosition(BOTTOM);
+            arm.setTargetPosition(BOTTOM);
 
         }else if(location == TurnValue.MID){
-            if(mover.getCurrentPosition()>MID){
+            if(arm.getCurrentPosition()>MID){
                 multiplier = -1;
             }
-            mover.setTargetPosition(MID);
+            arm.setTargetPosition(MID);
         }else if(location == TurnValue.TOP){
-            if(mover.getCurrentPosition()>TOP){
+            if(arm.getCurrentPosition()>TOP){
                 multiplier = -1;
             }
-            mover.setTargetPosition(TOP);
+            arm.setTargetPosition(TOP);
         }else if(location == TurnValue.GROUND){
-            if(mover.getCurrentPosition()>GROUND){
+            if(arm.getCurrentPosition()>GROUND){
                 multiplier = -1;
             }
-            mover.setTargetPosition(GROUND);
+            arm.setTargetPosition(GROUND);
         }
 
         //sets power and mode
-        mover.setPower(multiplier * 0.6);
-        mover.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(multiplier * 0.6);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //garbage way to determine when to stop mover
 //        while(mover.isBusy()){
@@ -90,32 +83,23 @@ public class Claw {
 
     //move claw up by small increments
     public void moveUp(){
-        mover.setTargetPosition(mover.getCurrentPosition() + 40    );
-        mover.setPower(0.45);
-        mover.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setTargetPosition(arm.getCurrentPosition() + 40    );
+        arm.setPower(0.45);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     //move claw down by small increments
     public void moveDown(){
-        mover.setTargetPosition(mover.getCurrentPosition() - 40);
-        mover.setPower(-0.45);
-        mover.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setTargetPosition(arm.getCurrentPosition() - 40);
+        arm.setPower(-0.45);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     //mover is busy or not
     public boolean isBusy(){
-        return mover.isBusy();
+        return arm.isBusy();
     }
 
 
-    //open and close claw
-    public void closeClaw(){
-        gripper.setPosition(CLOSE);
-    }
-
-    public void openClaw(){
-        gripper.setPosition(OPEN);
-
-    }
 
     public enum TurnValue {
         TOP,
@@ -128,3 +112,4 @@ public class Claw {
 
 
 }
+
