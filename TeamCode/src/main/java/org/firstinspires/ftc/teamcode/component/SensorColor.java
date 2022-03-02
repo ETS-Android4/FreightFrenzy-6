@@ -22,12 +22,12 @@ public class SensorColor {
     private float lowerLimitBall[] = {7F,2F,7F};
     private float upperLimitBall[] = {11F,4F,12F};
 
-    private final double DISTANCE = 2;
+    private final double DISTANCE = 3;
 
     public void init(HardwareMap hardwareMap) {
         colorSensor = hardwareMap.get(ColorSensor.class, "color");
-        colorSensor.enableLed(true);
 
+        colorSensor.enableLed(false);
         distanceSensor = hardwareMap.get(DistanceSensor.class, "color");
     }
 

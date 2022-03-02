@@ -17,10 +17,12 @@ public class  TeleOpParent extends LinearOpMode {
 
     boolean captured = true;//whether intake was successful or not
 
+    boolean timer = false;
 
     double slow = 0.6;
     private DriveSensor drivetrain2 = new DriveSensor(Moby.driveMotors);
 
+    public long millis = 0;
 
 
     @Override
@@ -36,6 +38,8 @@ public class  TeleOpParent extends LinearOpMode {
         // Send diagnostics to user
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+
 
         waitForStart();
 
@@ -61,13 +65,24 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
 
+
             if(Moby.colorSensor.intakeSuccessful()&&captured){
                 captured = false;
                 //change indication
-                Moby.spinner.spin();
-                sleep(1000);
-                Moby.spinner.stop();
+//                Moby.spinner.spin();
+//                sleep(1000);
+//                Moby.spinner.stop();
+                Moby.light.setPower(1);
+                millis = System.currentTimeMillis();
+                timer = true;
             }
+
+            if(System.currentTimeMillis()-millis>2000&&timer){
+                timer = false;
+                Moby.light.setPower(0);
+            }
+
+//            Moby.light.setPower(0.15 );
 
             if(!captured && !Moby.colorSensor.intakeSuccessful()){
                 captured = true;
@@ -108,19 +123,19 @@ public class  TeleOpParent extends LinearOpMode {
 
             //changes claw position on controller input
             if(gamepad1.a||gamepad2.a){
-                Moby.arm.moveArm(Arm.TurnValue.GROUND);
+                Moby.arm.moveArmTeleOp(Arm.TurnValue.GROUND);
             }
 
             if(gamepad1.x||gamepad2.x){
-                Moby.arm.moveArm(Arm.TurnValue.BOTTOM);
+                Moby.arm.moveArmTeleOp(Arm.TurnValue.BOTTOM);
             }
 
             if(gamepad1.y||gamepad2.y){
-                Moby.arm.moveArm(Arm.TurnValue.MID);
+                Moby.arm.moveArmTeleOp(Arm.TurnValue.MID);
             }
 
             if(gamepad1.b||gamepad2.b){
-                Moby.arm.moveArm(Arm.TurnValue.TOP);
+                Moby.arm.moveArmTeleOp(Arm.TurnValue.TOP);
             }
 
 
@@ -132,13 +147,26 @@ public class  TeleOpParent extends LinearOpMode {
                 Moby.arm.moveDown();
             }
 
-            if(gamepad1.right_bumper||gamepad2.right_bumper) {
+            if(gamepad1.dpad_left||gamepad2.dpad_left) {
                 Moby.intake.out();
-            }else if(gamepad1.left_bumper||gamepad2.left_bumper){
+            }else if(gamepad1.dpad_right||gamepad2.dpad_right){
                 Moby.intake.in();
             }else{
                 Moby.intake.stopSpinner();
             }
+
+
+            if(gamepad1.left_bumper||gamepad2.left_bumper){
+                Moby.intake.open();
+            }
+
+            if(gamepad1.right_bumper||gamepad2.right_bumper){
+                Moby.intake.close();
+            }
+
+//            telemetry.addData("Position", Moby.intake.getPosition());
+//            telemetry.update();
+
 
 
             //to stop mover once it has reached its target position

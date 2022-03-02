@@ -29,10 +29,11 @@ public class Moby {
 
     public static Spinner spinner;
 
-    public static Intake intake;
+    public static IntakeAlternate intake;
 
     public static Arm arm;
 
+    public static DcMotor light;
 
 
     // Motor array [in order: lf, lr, rf, rr]
@@ -81,12 +82,14 @@ public class Moby {
 
 
         spinner = new Spinner();
-        intake = new Intake();
+        intake = new IntakeAlternate();
         imu = new IMU();
         sensors = new Sensors();
         colorSensor = new SensorColor();
         arm = new Arm();
 
+
+        light = hardwareMap.get(DcMotor.class, "light");
 
         spinner.init(hardwareMap);
 
@@ -99,6 +102,7 @@ public class Moby {
         sensors.init();
 
         arm.init(hardwareMap);
+
 
 
     }
