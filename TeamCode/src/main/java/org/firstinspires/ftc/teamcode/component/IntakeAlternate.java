@@ -52,6 +52,10 @@ public class IntakeAlternate {
         claw.setPosition(CLOSE);
     }
 
+    public void out(double power){
+        spinner.setPower(-power);
+    }
+
 
 
 }

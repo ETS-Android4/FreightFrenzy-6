@@ -15,9 +15,6 @@ public class  TeleOpParent extends LinearOpMode {
     DriveStyle.DriveType type = DriveStyle.DriveType.MECANUMARCADE;
 
 
-    boolean captured = true;//whether intake was successful or not
-
-    boolean timer = false;
 
     double slow = 0.6;
     private DriveSensor drivetrain2 = new DriveSensor(Moby.driveMotors);
@@ -66,27 +63,17 @@ public class  TeleOpParent extends LinearOpMode {
 
 
 
-            if(Moby.colorSensor.intakeSuccessful()&&captured){
-                captured = false;
-                //change indication
-//                Moby.spinner.spin();
-//                sleep(1000);
-//                Moby.spinner.stop();
-                Moby.light.setPower(1);
-                millis = System.currentTimeMillis();
-                timer = true;
-            }
-
-            if(System.currentTimeMillis()-millis>2000&&timer){
-                timer = false;
+            if(Moby.colorSensor.intakeSuccessful()){
+                Moby.light.setPower(0.15);
+            }else{
                 Moby.light.setPower(0);
             }
 
+
+
 //            Moby.light.setPower(0.15 );
 
-            if(!captured && !Moby.colorSensor.intakeSuccessful()){
-                captured = true;
-            }
+
 
 //
             telemetry.addData("Distance", Moby.colorSensor.getDistance());
@@ -157,11 +144,11 @@ public class  TeleOpParent extends LinearOpMode {
 
 
             if(gamepad1.left_bumper||gamepad2.left_bumper){
-                Moby.intake.open();
+                Moby.intake.out(1);
             }
 
             if(gamepad1.right_bumper||gamepad2.right_bumper){
-                Moby.intake.close();
+                Moby.intake.out(1);
             }
 
 //            telemetry.addData("Position", Moby.intake.getPosition());

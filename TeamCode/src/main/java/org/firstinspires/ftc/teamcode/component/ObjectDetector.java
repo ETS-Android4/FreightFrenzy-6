@@ -17,7 +17,8 @@ public class ObjectDetector extends OpenCvPipeline {
     public enum Location {
         LEFT,
         RIGHT,
-        MID
+        MID,
+        GROUND
     }
 
     double leftValue;
