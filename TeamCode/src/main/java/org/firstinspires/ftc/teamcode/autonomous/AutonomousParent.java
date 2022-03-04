@@ -117,31 +117,37 @@ public class  AutonomousParent extends LinearOpMode {
     public void dropPreLoad(){
         switch(startingPosition){
             case RED_INSIDE:
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.5);
+                sleep(200);
                 //alignment
-                armMover = new ClawAutoThread(position);
-                armMover.start();
-                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.35, 0.2);
-                sleep(250);
-                drivetrain2.straighten(0,0.4);
-                sleep(250);
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
-//                moveGripperToPos();
+                drivetrain2.straighten(0, 0.2);
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 20, 0.6);
+
                 armMover = new ClawAutoThread(position);
                 armMover.start();
 
-                drivetrain2.setHeading(1, -0.3, 45);
-                sleep(250);
 
-                seconds = 0.22;
-                if(position == ObjectDetector.Location.RIGHT){
-                    seconds = 0.26;
-                }else if(position == ObjectDetector.Location.MID){
-                    seconds = 0.2;
-                }else{
-                    seconds = 0.2;
+
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
                 }
 
-                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.4, seconds);
+                sleep(200);
+
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 105, 0.4);
+                seconds = 0.22;
+                if(position == ObjectDetector.Location.RIGHT){
+                    seconds = 0.31;
+                }else if(position == ObjectDetector.Location.MID){
+                    seconds = 0.27;
+                }else{
+                    seconds = 0.26;
+                }
+
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.2, seconds);
 
 //                drops pre-load
                outtake();
@@ -149,46 +155,56 @@ public class  AutonomousParent extends LinearOpMode {
 //                sleep(500);
 //                Moby.intake.open();
 //                sleep(500);
-                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.5, 0.18);
-                sleep(250);
-                moveGripperBack();
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.1 , 0.1);
+
+                armMover = new ClawAutoThread(ObjectDetector.Location.GROUND);
+                armMover.start();
                 Moby.intake.close();
+
+
                 break;
             case BLUE_INSIDE:
+
+                drivetrain.move(DriveAuto.MoveDirection.LEFT, 0.3, 0.36);
+                sleep(100);
+                drivetrain2.straighten(0, 0.2);
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 20, 0.6);
+
                 armMover = new ClawAutoThread(position);
                 armMover.start();
-                //alignment
-                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.3, 0.36);
-                sleep(250);
-                drivetrain2.straighten(0);
-                sleep(250);
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
-//                moveGripperToPos();
 
 
-                drivetrain2.setHeading(1, 0.3, -45);
-                sleep(250);
 
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
+                }
+                sleep(200);
+
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 105, 0.4);
                 seconds = 0.22;
                 if(position == ObjectDetector.Location.RIGHT){
-                    seconds = 0.26;
+                    seconds = 0.31;
                 }else if(position == ObjectDetector.Location.MID){
-                    seconds = 0.21;
+                    seconds = 0.27;
                 }else{
-                    seconds = 0.21;
+                    seconds = 0.26;
                 }
 
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.2, seconds);
 
-                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.4, seconds);
-
+//                drops pre-load
                 outtake();
 
 //                sleep(500);
 //                Moby.intake.open();
 //                sleep(500);
-                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.5, 0.18);
-                sleep(500);
-                moveGripperBack();
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.1 , 0.1);
+                sleep(200);
+                armMover = new ClawAutoThread(ObjectDetector.Location.GROUND);
+                armMover.start();
                 Moby.intake.close();
                 break;
             case BLUE_OUTSIDE_PARK:
@@ -222,14 +238,14 @@ public class  AutonomousParent extends LinearOpMode {
                 sleep(500);
                 drivetrain2.setHeading(1, -0.2, 87);
                 sleep(500);
-                distance = 81;
-//                if(position== ObjectDetector.Location.RIGHT){
-//                    distance = 81;
-//                }else if(position== ObjectDetector.Location.MID){
-//                    distance = 81;
-//                }else{
-//                    distance = 81;
-//                }
+                distance = 0;
+                if(position== ObjectDetector.Location.RIGHT){
+                    distance = 82;
+                }else if(position== ObjectDetector.Location.MID){
+                    distance = 73.5;
+                }else{
+                    distance = 71.5;
+                }
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, distance, 0.2);
                 //drops pre-load
                 outtake();
@@ -259,14 +275,14 @@ public class  AutonomousParent extends LinearOpMode {
                 sleep(500);
                 drivetrain2.setHeading(1, 0.2, -85);
                 sleep(500);
-                distance = 81;
-//                if(position== ObjectDetector.Location.RIGHT){
-//                    distance = 81;
-//                }else if(position== ObjectDetector.Location.MID){
-//                    distance = 81;
-//                }else{
-//                    distance = 81;
-//                }
+                distance = 0;
+                if(position== ObjectDetector.Location.RIGHT){
+                    distance = 82;
+                }else if(position== ObjectDetector.Location.MID){
+                    distance = 73.5;
+                }else{
+                    distance = 72.5;
+                }
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, distance, 0.2);
 
                 outtake();
@@ -289,20 +305,22 @@ public class  AutonomousParent extends LinearOpMode {
     public void cycle(){
         switch(startingPosition) {
             case RED_INSIDE:
-                drivetrain2.setHeading(1, 0.4, 90);
+
                 if(Moby.imu.getHeading()>-90){
-                    drivetrain2.setHeading(1, 0.3, -90);
+                    drivetrain2.setHeading(1, 0.2, -90);
                 }else if(Moby.imu.getHeading()<-90) {
-                    drivetrain2.setHeading(1, -0.3, -90);
+                    drivetrain2.setHeading(1, -0.2, -90);
+                }
+                sleep(100);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 30, 0.5);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.2, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.2, -90);
                 }
                 sleep(100);
                 drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
-                if(Moby.imu.getHeading()>-90){
-                    drivetrain2.setHeading(1, 0.3, -90);
-                }else if(Moby.imu.getHeading()<-90) {
-                    drivetrain2.setHeading(1, -0.3, -90);
-                }
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.3);
+
 
                 pickUpFreight();
                 if(Moby.imu.getHeading()>-90){
@@ -310,22 +328,42 @@ public class  AutonomousParent extends LinearOpMode {
                 }else if(Moby.imu.getHeading()<-90) {
                     drivetrain2.setHeading(1, -0.3, -90);
                 }
+                sleep(100);
                 drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.42);
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
-                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 140, 0.5);
-                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.5, 0.5);
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 20, 0.3);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.3, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.3, -90);
+                }
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 7, 0.3);
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.3);
+
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 105, 0.5);
+
+
+
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
+                }
+
+
 
                 armMover = new ClawAutoThread(ObjectDetector.Location.RIGHT);
                 armMover.start();
-                drivetrain2.straighten(0, 0.4);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 105, 0.3);
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
+                }
 
-//                moveGripperToTop();
 
 
-                drivetrain2.straighten(0, STRAIGHTEN_POWER);
-                sleep(200);
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 66, 0.2);
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.2, 0.38);
+
                 outtake();
 //                sleep(500);
 //                Moby.intake.open();
@@ -334,11 +372,12 @@ public class  AutonomousParent extends LinearOpMode {
 
                 break;
             case BLUE_INSIDE:
-                drivetrain2.setHeading(1, -0.4, 90);
+
+
                 if(Moby.imu.getHeading()>90){
-                    drivetrain2.setHeading(1, 0.3, 90);
+                    drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<90) {
-                    drivetrain2.setHeading(1, -0.3, 90);
+                    drivetrain2.setHeading(1, -0.2, 90);
                 }
                 sleep(100);
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
@@ -356,18 +395,29 @@ public class  AutonomousParent extends LinearOpMode {
                 }
                 drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.42);
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
-                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 140, 0.5);
-                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.45, 0.42);
-                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 20, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 105, 0.5);
+
+
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
+                }
+
+
+
                 armMover = new ClawAutoThread(ObjectDetector.Location.RIGHT);
                 armMover.start();
-                drivetrain2.straighten(0, 0.4);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 105, 0.3);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
+                }
 
-//                moveGripperToTop();
 
-                drivetrain2.straighten(0, STRAIGHTEN_POWER);
-                sleep(200);
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 66, 0.2);
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.2, 0.38);
+
                 outtake();
 //                sleep(500);
 //                Moby.intake.open();
@@ -381,7 +431,7 @@ public class  AutonomousParent extends LinearOpMode {
 
     public void pickUpFreight(){
         boolean captured;
-        while(Moby.sensors.getFront()>46&&!Moby.colorSensor.intakeSuccessful()){
+        while(Moby.sensors.getFront()>38&&!Moby.colorSensor.intakeSuccessful()){
             Moby.intake.in();
             DriveStyle.MecanumArcade(Moby.driveMotors, 0.3,0,1,0);
         }
@@ -392,7 +442,7 @@ public class  AutonomousParent extends LinearOpMode {
             }else if(startingPosition==StartingPosition.BLUE_INSIDE){
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 15, 0.3);
             }
-            while(Moby.sensors.getFront()>41&&!Moby.colorSensor.intakeSuccessful()){
+            while(Moby.sensors.getFront()>33&&!Moby.colorSensor.intakeSuccessful()){
                 Moby.intake.in();
                 DriveStyle.MecanumArcade(Moby.driveMotors, 0.3,0,1,0);
             }
@@ -406,30 +456,33 @@ public class  AutonomousParent extends LinearOpMode {
     public void spinAndPark(){
         switch(startingPosition){
             case RED_INSIDE:
-                while(Moby.sensors.getBack()>8){
-                    DriveStyle.MecanumArcade(Moby.driveMotors, 0.7, 1, -1, 0);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.7);
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
                 }
-                drivetrain2.straighten(0, 0.2);
-                sleep(250);
+                drivetrain.move(DriveAuto.MoveDirection.LEFT, 0.2, 0.3);
                 armMover = new ClawAutoThread(ObjectDetector.Location.GROUND);
                 armMover.start();
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 80, 0.65);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 60, 0.6);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
 
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 50, 0.6);
-                drivetrain2.straighten(180, 0.3);
                 break;
             case BLUE_INSIDE:
-                while(Moby.sensors.getBack()>8){
-                    DriveStyle.MecanumArcade(Moby.driveMotors, 0.7, -1, -1, 0);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.7);
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.3);
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.2, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.2, 90);
                 }
-                drivetrain2.straighten(0, 0.2);
-                sleep(250);
                 armMover = new ClawAutoThread(ObjectDetector.Location.GROUND);
                 armMover.start();
-                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 80, 0.65);
-
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 50, 0.6);
-                drivetrain2.straighten(180, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 60, 0.6);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
                 break;
             case RED_OUTSIDE:
                 //aligns with carousel
@@ -548,6 +601,7 @@ public class  AutonomousParent extends LinearOpMode {
                     drivetrain2.setHeading(1, -0.1, -90);
                 }
                 drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.TOWARDS, 70, 0.5);
+                pickUpFreight();
                 break;
             case BLUE_OUTSIDE_PARK:
                 //parks in warehouse
@@ -599,6 +653,7 @@ public class  AutonomousParent extends LinearOpMode {
                     drivetrain2.setHeading(1, -0.1, 90);
                 }
                 drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.TOWARDS, 75 , 0.5);
+                pickUpFreight();
                 break;
 
         }
@@ -1098,6 +1153,285 @@ public class  AutonomousParent extends LinearOpMode {
 
 
 
+    }
+
+
+    //OLD 45 deg stuff
+    //drops shipping element at the correct spot
+    public void dropPreLoad2(){
+        switch(startingPosition){
+            case RED_INSIDE:
+                //alignment
+                armMover = new ClawAutoThread(position);
+                armMover.start();
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.3, 0.36);
+                sleep(250);
+                drivetrain2.straighten(0, 0.2);
+                sleep(250);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
+//                moveGripperToPos();
+
+                drivetrain2.setHeading(1, -0.3, 49);
+                sleep(250);
+
+                seconds = 0.22;
+                if(position == ObjectDetector.Location.RIGHT){
+                    seconds = 0.28;
+                }else if(position == ObjectDetector.Location.MID){
+                    seconds = 0.27;
+                }else{
+                    seconds = 0.26;
+                }
+
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.4, seconds);
+
+//                drops pre-load
+                outtake();
+
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.4 , 0.1);
+                sleep(250);
+                moveGripperBack();
+                Moby.intake.close();
+                break;
+            case BLUE_INSIDE:
+                armMover = new ClawAutoThread(position);
+                armMover.start();
+                //alignment
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.3, 0.36);
+                sleep(250);
+                drivetrain2.straighten(0, 0.2);
+                sleep(250);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 60, 0.6);
+//                moveGripperToPos();
+
+
+                drivetrain2.setHeading(1, 0.3, -47);
+                sleep(250);
+
+                seconds = 0.22;
+                if(position == ObjectDetector.Location.RIGHT){
+                    seconds = 0.28;
+                }else if(position == ObjectDetector.Location.MID){
+                    seconds = 0.27;
+                }else{
+                    seconds = 0.26;
+                }
+
+
+                drivetrain.move(DriveAuto.MoveDirection.FORWARD, 0.4, seconds);
+
+                outtake();
+
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.5, 0.18);
+                sleep(500);
+                moveGripperBack();
+                Moby.intake.close();
+                break;
+            case BLUE_OUTSIDE_PARK:
+            case BLUE_OUTSIDE:
+                //for blue outside only it will spin before dropping
+                //goes to spinner
+                drivetrain2.straighten(0, 0.5);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 33.5, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.3);
+                drivetrain2.straighten(0, 0.5);
+                sleep(500);
+                //spins
+                Moby.spinner.spin();
+                sleep(2000);
+                Moby.spinner.stop();
+                drivetrain2.straighten(0, 0.3);
+
+                //aligns with shipping hub
+                if(position== ObjectDetector.Location.RIGHT){
+                    drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 70, LOW_POWER);
+                }else{
+                    drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 40, LOW_POWER);
+                }
+                sleep(500);
+                drivetrain2.straighten(0, STRAIGHTEN_POWER);
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 96, 0.6);
+                sleep(500);
+                moveGripperToPos();
+                drivetrain2.straighten(0, STRAIGHTEN_POWER);
+                sleep(500);
+                drivetrain2.setHeading(1, -0.2, 87);
+                sleep(500);
+                distance = 0;
+                if(position== ObjectDetector.Location.RIGHT){
+                    distance = 82;
+                }else if(position== ObjectDetector.Location.MID){
+                    distance = 73.5;
+                }else{
+                    distance = 71.5;
+                }
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, distance, 0.2);
+                //drops pre-load
+                outtake();
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 70, LOW_POWER);
+                sleep(500);
+                moveGripperBack();
+                Moby.intake.close();
+                break;
+            case RED_OUTSIDE_PARK:
+            case RED_OUTSIDE:
+//
+                //moves to avoid shipping element
+                if(position== ObjectDetector.Location.MID){
+                    drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 50, 0.5);
+                }else if (position== ObjectDetector.Location.LEFT){
+                    drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 74, 0.3);
+                }
+                //aligns with shipping hub
+                drivetrain2.straighten(0, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 95, 0.6);
+                sleep(500);
+                moveGripperToPos();
+                drivetrain2.straighten(0, STRAIGHTEN_POWER);
+                sleep(500);
+                drivetrain2.setHeading(1, 0.2, -85);
+                sleep(500);
+                distance = 0;
+                if(position== ObjectDetector.Location.RIGHT){
+                    distance = 82;
+                }else if(position== ObjectDetector.Location.MID){
+                    distance = 73.5;
+                }else{
+                    distance = 72.5;
+                }
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, distance, 0.2);
+
+                outtake();
+
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 70, LOW_POWER);
+                sleep(500);
+                moveGripperBack();
+                Moby.intake.close();
+                break;
+
+        }
+
+    }
+
+    //cycles to get freight
+    public void cycle2(){
+        switch(startingPosition) {
+            case RED_INSIDE:
+                drivetrain2.setHeading(1, -0.4, -90);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.3, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.3, -90);
+                }
+                sleep(100);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 30, 0.3);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.2, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.2, -90);
+                }
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
+
+
+                pickUpFreight();
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.3, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.3, -90);
+                }
+                sleep(100);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.42);
+                if(Moby.imu.getHeading()>-90){
+                    drivetrain2.setHeading(1, 0.3, -90);
+                }else if(Moby.imu.getHeading()<-90) {
+                    drivetrain2.setHeading(1, -0.3, -90);
+                }
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 7, 0.3);
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.3);
+
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 140, 0.5);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 20, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 140, 0.5);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.45, 0.85);
+
+
+                armMover = new ClawAutoThread(ObjectDetector.Location.RIGHT);
+                armMover.start();
+                drivetrain2.straighten(0, 0.3);
+
+//                moveGripperToTop();
+                sleep(200);
+
+                drivetrain2.straighten(0, STRAIGHTEN_POWER);
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 66, 0.2);
+                outtake();
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+//                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 50, LOW_POWER);
+
+                break;
+            case BLUE_INSIDE:
+                drivetrain2.setHeading(1, -0.4, 90);
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.3, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.3, 90);
+                }
+                sleep(100);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.3, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.3, 90);
+                }
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.3);
+                pickUpFreight();
+                if(Moby.imu.getHeading()>90){
+                    drivetrain2.setHeading(1, 0.3, 90);
+                }else if(Moby.imu.getHeading()<90) {
+                    drivetrain2.setHeading(1, -0.3, 90);
+                }
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.42);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 140, 0.5);
+                drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.45, 0.42);
+                drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 20, 0.3);
+                armMover = new ClawAutoThread(ObjectDetector.Location.RIGHT);
+                armMover.start();
+                drivetrain2.straighten(0, 0.3);
+
+                sleep(200);
+//                moveGripperToTop();
+
+                drivetrain2.straighten(0, STRAIGHTEN_POWER);
+                sleep(200);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 66, 0.2);
+                outtake();
+//                sleep(500);
+//                Moby.intake.open();
+//                sleep(500);
+//                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 50, LOW_POWER);
+
+
+                break;
+        }
     }
 
     public enum StartingPosition{

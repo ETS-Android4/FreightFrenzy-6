@@ -12,9 +12,9 @@ public class Arm {
     private DcMotor arm;
 
     //constants for each shipping hub level
-    private final int TOP = 3219 ;//3088
-    private final int MID = 2040;//1392
-    private final int BOTTOM = 950;//522
+    private final int TOP = 3169 ;//3088
+    private final int MID = 1920;//1392
+    private final int BOTTOM = 890;//522
     private final int GROUND = 0;
 
     //constants for each shipping hub level
