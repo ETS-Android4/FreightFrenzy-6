@@ -117,7 +117,7 @@ public class  AutonomousParent extends LinearOpMode {
     public void dropPreLoad(){
         switch(startingPosition){
             case RED_INSIDE:
-                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.5);
+                drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.4);
                 sleep(200);
                 //alignment
                 drivetrain2.straighten(0, 0.2);
@@ -128,15 +128,7 @@ public class  AutonomousParent extends LinearOpMode {
                 armMover.start();
 
 
-                if(Moby.imu.getHeading()>90){
-                    while(Moby.imu.getHeading()>90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<90) {
-                    while(Moby.imu.getHeading()<90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(-0.3, 90);
                 if(Moby.imu.getHeading()>90){
                     drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<90) {
@@ -183,15 +175,7 @@ public class  AutonomousParent extends LinearOpMode {
                 armMover.start();
 
 
-                if(Moby.imu.getHeading()>-90){
-                    while(Moby.imu.getHeading()>-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<-90) {
-                    while(Moby.imu.getHeading()<-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(0.3, -90);
                 if(Moby.imu.getHeading()>-90){
                     drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<-90) {
@@ -321,15 +305,7 @@ public class  AutonomousParent extends LinearOpMode {
     public void cycle(){
         switch(startingPosition) {
             case RED_INSIDE:
-                if(Moby.imu.getHeading()>-90){
-                    while(Moby.imu.getHeading()>-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<-90) {
-                    while(Moby.imu.getHeading()<-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(-0.35, -90);
                 if(Moby.imu.getHeading()>-90){
                     drivetrain2.setHeading(1, 0.2, -90);
                 }else if(Moby.imu.getHeading()<-90) {
@@ -366,15 +342,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 105, 0.5);
 
 
-                if(Moby.imu.getHeading()>90){
-                    while(Moby.imu.getHeading()>90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<90) {
-                    while(Moby.imu.getHeading()<90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(-0.35, 90);
                 if(Moby.imu.getHeading()>90){
                     drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<90) {
@@ -406,15 +374,7 @@ public class  AutonomousParent extends LinearOpMode {
                 break;
             case BLUE_INSIDE:
 
-                if(Moby.imu.getHeading()>90){
-                    while(Moby.imu.getHeading()>90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<90) {
-                    while(Moby.imu.getHeading()<90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(0.3, 90);
                 if(Moby.imu.getHeading()>90){
                     drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<90) {
@@ -438,15 +398,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
                 drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 105, 0.5);
 
-                if(Moby.imu.getHeading()>-90){
-                    while(Moby.imu.getHeading()>-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, 0.4, 0, 0, 1);
-                    }
-                }else if(Moby.imu.getHeading()<-90) {
-                    while(Moby.imu.getHeading()<-90){
-                        DriveStyle.MecanumArcade(Moby.driveMotors, -0.4, 0, 0, 1);
-                    }
-                }
+                drivetrain2.setHeading(0.35, -90);
                 if(Moby.imu.getHeading()>-90){
                     drivetrain2.setHeading(1, 0.2, 90);
                 }else if(Moby.imu.getHeading()<-90) {
