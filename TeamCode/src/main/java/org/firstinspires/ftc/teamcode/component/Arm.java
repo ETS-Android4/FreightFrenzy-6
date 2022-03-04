@@ -14,7 +14,7 @@ public class Arm {
     //constants for each shipping hub level
     private final int TOP = 3169 ;//3088
     private final int MID = 1920;//1392
-    private final int BOTTOM = 890;//522
+    private final int BOTTOM = 900;//522
     private final int GROUND = 0;
 
     //constants for each shipping hub level

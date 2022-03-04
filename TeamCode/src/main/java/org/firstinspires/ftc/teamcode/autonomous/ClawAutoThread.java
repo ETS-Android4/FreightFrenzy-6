@@ -59,6 +59,7 @@ public class ClawAutoThread extends Thread{
                 }
 
                 break;
+
         }
     }
 
