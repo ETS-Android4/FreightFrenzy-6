@@ -14,7 +14,7 @@ public class Arm {
     //constants for each shipping hub level
     private final int TOP = 3169 ;//3088
     private final int MID = 1920;//1392
-    private final int BOTTOM = 900;//522
+    private final int BOTTOM = 840;//522
     private final int GROUND = 0;
 
     //constants for each shipping hub level
@@ -34,6 +34,15 @@ public class Arm {
 
         arm.setDirection(DcMotorSimple.Direction.REVERSE);
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+    }
+
+    public void init(HardwareMap hardwareMap, boolean init2){
+        arm = hardwareMap.get(DcMotor.class, "claw");
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        arm.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }

@@ -36,7 +36,7 @@ public class IntakeAlternate {
     }
 
     public void out(){
-        spinner.setPower(-0.4);
+        spinner.setPower(-0.5);
     }
 
     public void stopSpinner(){

@@ -30,7 +30,7 @@ public class  TeleOpParent extends LinearOpMode {
         telemetry.update();
 
         // Initialize the robot hardware
-        Moby.init(hardwareMap);
+        Moby.init(hardwareMap, true);
 
         // Send diagnostics to user
         telemetry.addData("Status", "Initialized");

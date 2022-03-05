@@ -39,7 +39,7 @@ public class Moby {
     // Motor array [in order: lf, lr, rf, rr]
     public static ArrayList<DcMotor> driveMotors = new ArrayList<>();
 
-    public static void init(HardwareMap hwMap) {
+    public static void init(HardwareMap hwMap, boolean initTeleOp) {
         // Assign HardwareMap
         hardwareMap = hwMap;
 
@@ -101,7 +101,11 @@ public class Moby {
 
         sensors.init();
 
-        arm.init(hardwareMap);
+        if(initTeleOp){
+            arm.init(hardwareMap, true);
+        }else{
+            arm.init(hardwareMap);
+        }
 
 
 

@@ -210,7 +210,7 @@ public class DriveSensor {
     }
 
     public void setHeading(double power, double heading){
-        while(Math.abs(Moby.imu.getHeading()-heading)>13){
+        while(Math.abs(Moby.imu.getHeading()-heading)>20){
             DriveStyle.MecanumArcade(Moby.driveMotors, power, 0, 0 ,1);
         }
         DriveStyle.MecanumArcade(Moby.driveMotors, 0, 0, 0 ,0);
