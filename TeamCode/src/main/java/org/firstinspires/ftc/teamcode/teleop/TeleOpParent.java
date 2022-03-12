@@ -148,7 +148,7 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
             if(gamepad1.right_bumper||gamepad2.right_bumper){
-                Moby.intake.out(1);
+                Moby.arm.moveArmTeleOp(Arm.TurnValue.SHARED);
             }
 
 //            telemetry.addData("Position", Moby.intake.getPosition());

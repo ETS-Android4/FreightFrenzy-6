@@ -21,6 +21,7 @@ public class Arm {
     private final int TOP_TELEOP = 3009 ;//3088
     private final int MID_TELEOP = 1897;//1392
     private final int BOTTOM_TELEOP = 781;//522
+    private final int SHARED_TELEOP = 1073;
 
 
 
@@ -124,6 +125,14 @@ public class Arm {
                 multiplier = -1;
             }
             arm.setTargetPosition(GROUND);
+        }else if(location == TurnValue.SHARED){
+            //determines multiplier based on current position
+            if(arm.getCurrentPosition()>SHARED_TELEOP){
+                multiplier = -1;
+            }
+            //sets target position
+            arm.setTargetPosition(SHARED_TELEOP);
+
         }
 
         //sets power and mode
@@ -161,7 +170,8 @@ public class Arm {
         TOP,
         BOTTOM,
         MID,
-        GROUND
+        GROUND,
+        SHARED
     }
 
 

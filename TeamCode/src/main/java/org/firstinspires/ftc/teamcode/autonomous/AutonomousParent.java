@@ -145,7 +145,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.AWAY, 105, 0.4);
                 seconds = 0.22;
                 if(position == ObjectDetector.Location.RIGHT){
-                    seconds = 0.35;
+                    seconds = 0.4;
                 }else if(position == ObjectDetector.Location.MID){
                     seconds = 0.26;
                 }else{
@@ -193,7 +193,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.AWAY, 105, 0.4);
                 seconds = 0.22;
                 if(position == ObjectDetector.Location.RIGHT){
-                    seconds = 0.35;
+                    seconds = 0.4;
                 }else if(position == ObjectDetector.Location.MID){
                     seconds = 0.27;
                 }else{
@@ -222,7 +222,7 @@ public class  AutonomousParent extends LinearOpMode {
                 //for blue outside only it will spin before dropping
                 //goes to spinner
                 drivetrain2.straighten(0, 0.5);
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 33.5, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 30, 0.3);
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.3);
                 drivetrain2.straighten(0, 0.5);
                 sleep(500);
@@ -241,20 +241,20 @@ public class  AutonomousParent extends LinearOpMode {
                 sleep(500);
                 drivetrain2.straighten(0, STRAIGHTEN_POWER);
                 sleep(200);
-                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 86, 0.6);
+                drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, 89, 0.6);
                 sleep(500);
                 moveGripperToPos();
                 drivetrain2.straighten(0, STRAIGHTEN_POWER);
                 sleep(500);
-                drivetrain2.setHeading(1, -0.2, 87);
+                drivetrain2.setHeading(1, -0.2, 85);
                 sleep(500);
                 distance = 0;
                 if(position== ObjectDetector.Location.RIGHT){
                     distance = 82;
                 }else if(position== ObjectDetector.Location.MID){
-                    distance = 73.5;
+                    distance = 76;
                 }else{
-                    distance = 71.5;
+                    distance = 73;
                 }
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.AWAY, distance, 0.2);
                 //drops pre-load
@@ -289,7 +289,7 @@ public class  AutonomousParent extends LinearOpMode {
                 if(position== ObjectDetector.Location.RIGHT){
                     distance = 82;
                 }else if(position== ObjectDetector.Location.MID){
-                    distance = 73.5;
+                    distance = 76;
                 }else{
                     distance = 72.5;
                 }
@@ -351,7 +351,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 7, 0.3);
                 drivetrain.move(DriveAuto.MoveDirection.RIGHT, 0.2, 0.3);
 
-                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 110, 0.5);
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 115, 0.5);
 
 
                 drivetrain2.setHeading(-0.35, 90);
@@ -412,7 +412,7 @@ public class  AutonomousParent extends LinearOpMode {
                 drivetrain.move(DriveAuto.MoveDirection.BACKWARD, 0.3, 0.65);
                 Moby.intake.stopSpinner();
                 drivetrain2.move(DriveSensor.Sensor.LEFT, DriveSensor.ReferenceDirection.TOWARDS, 10, 0.5);
-                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 110, 0.5);
+                drivetrain2.move(DriveSensor.Sensor.FRONT, DriveSensor.ReferenceDirection.AWAY, 115, 0.5);
 
                 drivetrain2.setHeading(0.35, -90);
                 if(Moby.imu.getHeading()>-90){
@@ -525,7 +525,7 @@ public class  AutonomousParent extends LinearOpMode {
                 }
                 sleep(500);
                 drivetrain2.move(DriveSensor.Sensor.BACK, DriveSensor.ReferenceDirection.TOWARDS, 8, 0.3);
-                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 31.2, 0.3);
+                drivetrain2.move(DriveSensor.Sensor.RIGHT, DriveSensor.ReferenceDirection.TOWARDS, 30, 0.3);
 
                 //spins carousel
                 sleep(500);
