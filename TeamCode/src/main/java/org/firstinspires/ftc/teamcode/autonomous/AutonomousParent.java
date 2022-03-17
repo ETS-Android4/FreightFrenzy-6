@@ -2,19 +2,12 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.component.Arm;
-import org.firstinspires.ftc.teamcode.component.Intake;
 import org.firstinspires.ftc.teamcode.component.ObjectDetector;
 import org.firstinspires.ftc.teamcode.core.Moby;
-import org.firstinspires.ftc.teamcode.library.DriveAuto;
-import org.firstinspires.ftc.teamcode.library.DriveSensor;
-import org.firstinspires.ftc.teamcode.library.DriveStyle;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
-
-import java.util.prefs.BackingStoreException;
 
 
 public class  AutonomousParent extends LinearOpMode {
