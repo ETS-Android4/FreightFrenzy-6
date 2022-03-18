@@ -17,13 +17,17 @@ public class Moby {
     private static DcMotor dBackLeft;
     private static DcMotor dBackRight;
 
-
+    public static Spinner spinner;
+    public static intake roller;
+    public static FreightSensor fSensor;
 
 //    // Sensors
     public static Sensors sensors;
 //
 //    //IMU
     public static IMU imu;
+
+    public static Arm arm;
 
 
 
@@ -76,6 +80,15 @@ public class Moby {
 
         imu = new IMU();
         sensors = new Sensors();
+        spinner = new Spinner();
+        roller = new intake();
+        fSensor = new FreightSensor();
+        arm = new Arm();
+
+        spinner.init(hardwareMap);
+        roller.init(hardwareMap);
+        fSensor.init();
+        arm.init(hardwareMap);
 
     }
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.component.Arm;
 import org.firstinspires.ftc.teamcode.core.*;
 import org.firstinspires.ftc.teamcode.library.DriveSensor;
 import org.firstinspires.ftc.teamcode.library.DriveStyle;
@@ -67,10 +68,36 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
 
+            if(gamepad1.dpad_up||gamepad2.dpad_up){
+                Moby.spinner.spin();
+            }else if(gamepad1.dpad_down||gamepad2.dpad_down){
+                Moby.spinner.reverse();
+            }else{
+                Moby.spinner.stop();
+            }
+
+            if(gamepad1.dpad_right || gamepad2.dpad_right) {
+                Moby.roller.in();
+            } else if(gamepad1.dpad_left || gamepad2.dpad_right) {
+                Moby.roller.out();
+            } else {
+                Moby.roller.stop();
+            }
+
+            if (Moby.fSensor.hasFreight()) {
+                Moby.fSensor.light.setPower(0.4);
+            } else {
+                Moby.fSensor.light.setPower(0);
+            }
 
 
+            if(gamepad1.b||gamepad2.b){
+                Moby.arm.moveArm(Arm.Position.TOP);
+            }
 
-
+            if(!Moby.arm.isBusy()){
+                Moby.arm.stopArm();
+            }
         }
 
 
