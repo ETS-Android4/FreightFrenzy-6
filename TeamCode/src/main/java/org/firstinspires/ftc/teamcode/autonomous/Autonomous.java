@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.components.ObjectDetector;
+import org.firstinspires.ftc.teamcode.component.freightSensor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -18,7 +18,7 @@ public class Autonomous extends LinearOpMode {
                         "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance()
                 .createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        ObjectDetector detector = new ObjectDetector(telemetry);
+        freightSensor.ObjectDetector detector = new freightSensor.ObjectDetector(telemetry);
         phoneCam.setPipeline(detector);
         phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
