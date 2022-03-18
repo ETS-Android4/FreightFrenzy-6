@@ -32,9 +32,6 @@ public class  AutonomousParent extends LinearOpMode {
 
     ClawAutoThread armMover;
 
-
-
-
     //drivetrains
     private DriveAuto drivetrain = new DriveAuto(Moby.driveMotors);
     private DriveSensor drivetrain2 = new DriveSensor(Moby.driveMotors);
