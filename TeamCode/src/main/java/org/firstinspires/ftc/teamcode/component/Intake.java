@@ -1,29 +1,46 @@
 package org.firstinspires.ftc.teamcode.component;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
+    private CRServo spinner;
 
-    CRServo intake;
 
-    final double IN = 1;
-    final double OUT = -0.4;
 
+
+    //tetrix: 1440 ticks per revolution
+    //andymark: 1120 ticks per rev
+
+    //init
     public void init(HardwareMap hardwareMap){
-        intake = hardwareMap.get(CRServo.class, "s1");
+
+        spinner = hardwareMap.get(CRServo.class, "s1");
+
+
+
     }
 
+
+
+    //open and close claw
     public void in(){
-        intake.setPower(IN);
+        spinner.setPower(1);
     }
 
     public void out(){
-        intake.setPower(OUT);
+        spinner.setPower(-1);
+
     }
 
-    public void stop(){
-        intake.setPower(0);
+    public void stopSpinner(){
+        spinner.setPower(0);
     }
+
+
+
+
+
 
 }

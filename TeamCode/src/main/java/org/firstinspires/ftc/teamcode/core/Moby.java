@@ -25,15 +25,21 @@ public class Moby {
 //    //IMU
     public static IMU imu;
 
+    public static SensorColor colorSensor;
+
     public static Spinner spinner;
-    public static Intake intake;
-    public static freightSensor freightSensor;
+
+    public static IntakeAlternate intake;
+
+    public static Arm arm;
+
+    public static DcMotor light;
 
 
     // Motor array [in order: lf, lr, rf, rr]
     public static ArrayList<DcMotor> driveMotors = new ArrayList<>();
 
-    public static void init(HardwareMap hwMap) {
+    public static void init(HardwareMap hwMap, boolean initTeleOp) {
         // Assign HardwareMap
         hardwareMap = hwMap;
 
@@ -75,16 +81,33 @@ public class Moby {
         driveMotors.add(dBackRight);
 
 
-
+        spinner = new Spinner();
+        intake = new IntakeAlternate();
         imu = new IMU();
         sensors = new Sensors();
-        spinner = new Spinner();
-        intake = new Intake();
-        freightSensor = new freightSensor();
+        colorSensor = new SensorColor();
+        arm = new Arm();
 
-        freightSensor.init(hardwareMap);
+
+        light = hardwareMap.get(DcMotor.class, "light");
+
         spinner.init(hardwareMap);
+
+        colorSensor.init(hardwareMap);
+
         intake.init(hardwareMap);
+
+        imu.init(hardwareMap);
+
+        sensors.init();
+
+        if(initTeleOp){
+            arm.init(hardwareMap, true);
+        }else{
+            arm.init(hardwareMap);
+        }
+
+
 
     }
 
