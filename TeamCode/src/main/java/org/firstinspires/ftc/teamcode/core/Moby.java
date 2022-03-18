@@ -25,7 +25,9 @@ public class Moby {
 //    //IMU
     public static IMU imu;
 
-
+    public static Spinner spinner;
+    public static Intake intake;
+    public static freightSensor freightSensor;
 
 
     // Motor array [in order: lf, lr, rf, rr]
@@ -76,6 +78,13 @@ public class Moby {
 
         imu = new IMU();
         sensors = new Sensors();
+        spinner = new Spinner();
+        intake = new Intake();
+        freightSensor = new freightSensor();
+
+        freightSensor.init(hardwareMap);
+        spinner.init(hardwareMap);
+        intake.init(hardwareMap);
 
     }
 

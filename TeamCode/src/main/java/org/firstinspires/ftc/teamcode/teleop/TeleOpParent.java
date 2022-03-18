@@ -51,28 +51,36 @@ public class  TeleOpParent extends LinearOpMode {
             // Drivie using set drivemode (g1.ls/rs, g1.lb/rb)
             DriveStyle.driveWithType(Moby.driveMotors, gamepad2, type, slow);
 
-
-
+            Moby.freightSensor.success();
             //to switch between slow mode, normal mode, and fast mode
-            if(gamepad2.left_stick_button){
+            if (gamepad2.left_stick_button) {
                 slow = 0.67;
             }
 
-            if(gamepad2.right_stick_button){
+            if (gamepad2.right_stick_button) {
                 slow = 0.15;
             }
 
-            if(gamepad2.dpad_right){
+            if (gamepad2.dpad_right) {
                 slow = 1;
             }
 
+            if (gamepad1.dpad_up || gamepad2.dpad_up) {
+                Moby.spinner.spin();
+            } else if (gamepad1.dpad_down || gamepad2.dpad_down) {
+                Moby.spinner.reverse();
+            } else {
+                Moby.spinner.stop();
+            }
 
-
-
-
-
+            if (gamepad1.dpad_left || gamepad2.dpad_left) {
+                Moby.intake.in();
+            } else if (gamepad1.dpad_right || gamepad2.dpad_right) {
+                Moby.intake.out();
+            } else {
+                Moby.intake.stop();
+            }
         }
-
 
     }
 
