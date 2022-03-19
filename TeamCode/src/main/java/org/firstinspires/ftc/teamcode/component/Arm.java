@@ -9,17 +9,20 @@ public class Arm {
 
     private final double POWER = 0.6;
 
-    //motor ticks
-    private final double GROUND = 0;
-    private final double BOTTOM = 500;
-    private final double MIDDLE = 1000;
-    private final double TOP = 1500;
-
     public enum Position{
-        GROUND,
-        BOTTOM,
-        MIDDLE,
-        TOP
+        GROUND(0),
+        BOTTOM(500),
+        MIDDLE(1000),
+        TOP(1500);
+
+        double ticks;
+        Position(double ticks){
+            this.ticks = ticks;
+        }
+
+        double getTicks(){
+            return ticks;
+        }
     }
 
     public void init(HardwareMap hardwareMap){
@@ -31,16 +34,10 @@ public class Arm {
 
     public void moveArm(Position position){
         int multiplier = 1;
-        switch(position){
-            case TOP:
-                if(arm.getCurrentPosition()>TOP){
-                    multiplier = -1;
-                }
-                arm.setTargetPosition((int)TOP);
-                break;
-            case MIDDLE:
-                break;
+        if(arm.getCurrentPosition()>position.getTicks()){
+            multiplier = -1;
         }
+        arm.setTargetPosition((int)position.getTicks());
 
         arm.setPower(multiplier * POWER);
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
