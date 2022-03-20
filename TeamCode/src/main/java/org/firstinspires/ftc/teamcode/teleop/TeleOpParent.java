@@ -110,19 +110,19 @@ public class  TeleOpParent extends LinearOpMode {
 
             //changes claw position on controller input
             if(gamepad1.a||gamepad2.a){
-                Moby.arm.moveArmTeleOp(Arm.TurnValue.GROUND);
+                Moby.arm.moveArmTeleOp(Arm.TurnValueTeleOp.GROUND);
             }
 
             if(gamepad1.x||gamepad2.x){
-                Moby.arm.moveArmTeleOp(Arm.TurnValue.BOTTOM);
+                Moby.arm.moveArmTeleOp(Arm.TurnValueTeleOp.BOTTOM);
             }
 
             if(gamepad1.y||gamepad2.y){
-                Moby.arm.moveArmTeleOp(Arm.TurnValue.MID);
+                Moby.arm.moveArmTeleOp(Arm.TurnValueTeleOp.MID);
             }
 
             if(gamepad1.b||gamepad2.b){
-                Moby.arm.moveArmTeleOp(Arm.TurnValue.TOP);
+                Moby.arm.moveArmTeleOp(Arm.TurnValueTeleOp.TOP);
             }
 
 
@@ -148,7 +148,7 @@ public class  TeleOpParent extends LinearOpMode {
             }
 
             if(gamepad1.right_bumper||gamepad2.right_bumper){
-                Moby.arm.moveArmTeleOp(Arm.TurnValue.SHARED);
+                Moby.arm.moveArmTeleOp(Arm.TurnValueTeleOp.SHARED);
             }
 
 //            telemetry.addData("Position", Moby.intake.getPosition());

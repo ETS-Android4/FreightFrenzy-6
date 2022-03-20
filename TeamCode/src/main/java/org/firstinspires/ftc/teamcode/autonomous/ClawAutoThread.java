@@ -17,7 +17,7 @@ public class ClawAutoThread extends Thread{
         switch (position) {
             case RIGHT:
                 for(int i=0;i<1;i++){
-                    Moby.arm.moveArm(Arm.TurnValue.TOP);
+                    Moby.arm.moveArm(Arm.TurnValueAuto.TOP);
                     while(Moby.arm.isBusy()){
 
                     }
@@ -30,7 +30,7 @@ public class ClawAutoThread extends Thread{
                 break;
             case LEFT:
                 for(int i=0;i<1;i++){
-                    Moby.arm.moveArm(Arm.TurnValue.BOTTOM);
+                    Moby.arm.moveArm(Arm.TurnValueAuto.BOTTOM);
                     while(Moby.arm.isBusy()){
 
                     }
@@ -41,7 +41,7 @@ public class ClawAutoThread extends Thread{
                 break;
             case MID:
                 for(int i=0;i<1;i++){
-                    Moby.arm.moveArm(Arm.TurnValue.MID);
+                    Moby.arm.moveArm(Arm.TurnValueAuto.MID);
                     while(Moby.arm.isBusy()){
 
                     }
@@ -51,7 +51,7 @@ public class ClawAutoThread extends Thread{
                 break;
             case GROUND:
                 for(int i=0;i<1;i++){
-                    Moby.arm.moveArm(Arm.TurnValue.GROUND);
+                    Moby.arm.moveArm(Arm.TurnValueAuto.GROUND);
                     while(Moby.arm.isBusy()){
 
                     }

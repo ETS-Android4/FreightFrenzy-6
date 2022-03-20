@@ -11,19 +11,38 @@ public class Arm {
     //spinner
     private DcMotor arm;
 
-    //constants for each shipping hub level
-    private final int TOP = 3169 ;//3088
-    private final int MID = 1920;//1392
-    private final int BOTTOM = 840;//522
-    private final int GROUND = 0;
+    public enum TurnValueAuto{
+        GROUND(0),
+        BOTTOM(840),
+        MID(1920),
+        TOP(3169);
 
-    //constants for each shipping hub level
-    private final int TOP_TELEOP = 3009 ;//3088
-    private final int MID_TELEOP = 1897;//1392
-    private final int BOTTOM_TELEOP = 781;//522
-    private final int SHARED_TELEOP = 1073;
+        int ticks;
+        TurnValueAuto(int ticks){
+            this.ticks = ticks;
+        }
 
+        int getTicks(){
+            return ticks;
+        }
+    }
 
+    public enum TurnValueTeleOp{
+        GROUND(0),
+        BOTTOM(781),
+        MID(1897),
+        TOP(3009),
+        SHARED(1073);
+
+        int ticks;
+        TurnValueTeleOp(int ticks){
+            this.ticks = ticks;
+        }
+
+        int getTicks(){
+            return ticks;
+        }
+    }
 
     //tetrix: 1440 ticks per revolution
     //andymark: 1120 ticks per rev
@@ -57,34 +76,14 @@ public class Arm {
     }
 
     //takes in input location
-    public void moveArm(TurnValue location){
+    public void moveArm(TurnValueAuto location){
         int multiplier = 1;//positive if the claw needs to go up, negative if it needs to go down
 
-
-        if(location == TurnValue.BOTTOM){
-            //determines multiplier based on current position
-            if(arm.getCurrentPosition()>BOTTOM){
-                multiplier = -1;
-            }
-            //sets target position
-            arm.setTargetPosition(BOTTOM);
-
-        }else if(location == TurnValue.MID){
-            if(arm.getCurrentPosition()>MID){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(MID);
-        }else if(location == TurnValue.TOP){
-            if(arm.getCurrentPosition()>TOP){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(TOP);
-        }else if(location == TurnValue.GROUND){
-            if(arm.getCurrentPosition()>GROUND){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(GROUND);
+        if(arm.getCurrentPosition()>location.getTicks()){
+            multiplier = -1;
         }
+        arm.setTargetPosition(location.getTicks());
+
 
         //sets power and mode
         arm.setPower(multiplier * 0.92);
@@ -98,42 +97,13 @@ public class Arm {
     }
 
     //takes in input location
-    public void moveArmTeleOp(TurnValue location){
+    public void moveArmTeleOp(TurnValueTeleOp location){
         int multiplier = 1;//positive if the claw needs to go up, negative if it needs to go down
 
-
-        if(location == TurnValue.BOTTOM){
-            //determines multiplier based on current position
-            if(arm.getCurrentPosition()>BOTTOM_TELEOP){
-                multiplier = -1;
-            }
-            //sets target position
-            arm.setTargetPosition(BOTTOM_TELEOP);
-
-        }else if(location == TurnValue.MID){
-            if(arm.getCurrentPosition()>MID_TELEOP){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(MID_TELEOP);
-        }else if(location == TurnValue.TOP){
-            if(arm.getCurrentPosition()>TOP_TELEOP){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(TOP_TELEOP);
-        }else if(location == TurnValue.GROUND){
-            if(arm.getCurrentPosition()>GROUND){
-                multiplier = -1;
-            }
-            arm.setTargetPosition(GROUND);
-        }else if(location == TurnValue.SHARED){
-            //determines multiplier based on current position
-            if(arm.getCurrentPosition()>SHARED_TELEOP){
-                multiplier = -1;
-            }
-            //sets target position
-            arm.setTargetPosition(SHARED_TELEOP);
-
+        if(arm.getCurrentPosition()>location.getTicks()){
+            multiplier = -1;
         }
+        arm.setTargetPosition(location.getTicks());
 
         //sets power and mode
         arm.setPower(multiplier * 0.92);
@@ -166,13 +136,7 @@ public class Arm {
 
 
 
-    public enum TurnValue {
-        TOP,
-        BOTTOM,
-        MID,
-        GROUND,
-        SHARED
-    }
+
 
 
 
