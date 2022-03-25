@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.component.Arm;
 import org.firstinspires.ftc.teamcode.core.*;
 import org.firstinspires.ftc.teamcode.library.DriveSensor;
 import org.firstinspires.ftc.teamcode.library.DriveStyle;
@@ -42,11 +44,11 @@ public class  TeleOpParent extends LinearOpMode {
         while (opModeIsActive()) {
 
             // "Gear" the drivetrain when the winches are up
-            /*
-            if (desiredPosition > 0.1) {
-                gamepad1.left_stick_x /= 2; gamepad1.left_stick_y /= 2; gamepad1.right_stick_x /= 2;
-            }
-            */
+           /*
+           if (desiredPosition > 0.1) {
+               gamepad1.left_stick_x /= 2; gamepad1.left_stick_y /= 2; gamepad1.right_stick_x /= 2;
+           }
+           */
 
             // Drivie using set drivemode (g1.ls/rs, g1.lb/rb)
             DriveStyle.driveWithType(Moby.driveMotors, gamepad2, type, slow);
@@ -80,8 +82,39 @@ public class  TeleOpParent extends LinearOpMode {
             } else {
                 Moby.intake.stop();
             }
+
+            if (gamepad1.a||gamepad2.a){
+                Moby.arm.moveArm(Arm.Position.GROUND);
+            }
+            else if (gamepad1.x||gamepad2.x){
+                Moby.arm.moveArm(Arm.Position.BOTTOM);
+            }
+            else if (gamepad1.y||gamepad2.y){
+                Moby.arm.moveArm(Arm.Position.MIDDLE);
+            }
+            else if (gamepad1.b||gamepad2.b){
+                Moby.arm.moveArm(Arm.Position.TOP);
+            }
+
+            if ((gamepad1.right_trigger >= 0.1)||(gamepad2.right_trigger >= 0.1)) {
+                Moby.arm.moveUp();
+            }
+            if ((gamepad1.left_trigger >= 0.1)||(gamepad2.left_trigger >= 0.1)) {
+                Moby.arm.moveDown();
+            }
+
+            if (!Moby.arm.isBusy()) {
+                Moby.arm.stopArm();
+            }
+
+            telemetry.addData("Arm Position", Moby.arm.getPosition());
+            telemetry.update();
         }
 
     }
 
 }
+
+
+
+

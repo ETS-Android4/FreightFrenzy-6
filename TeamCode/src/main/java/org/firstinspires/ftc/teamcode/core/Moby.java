@@ -1,12 +1,13 @@
+
 package org.firstinspires.ftc.teamcode.core;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.DcMotorSimple;
+        import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.component.*;
+        import org.firstinspires.ftc.teamcode.component.*;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class Moby {
     public static HardwareMap hardwareMap;
@@ -19,12 +20,12 @@ public class Moby {
 
 
 
-//    // Sensors
+    //    // Sensors
     public static Sensors sensors;
-//
+    //
 //    //IMU
     public static IMU imu;
-
+    public static Arm arm;
     public static Spinner spinner;
     public static Intake intake;
     public static freightSensor freightSensor;
@@ -81,10 +82,12 @@ public class Moby {
         spinner = new Spinner();
         intake = new Intake();
         freightSensor = new freightSensor();
+        arm = new Arm();
 
         freightSensor.init(hardwareMap);
         spinner.init(hardwareMap);
         intake.init(hardwareMap);
+        arm.init(hardwareMap);
 
     }
 
@@ -103,3 +106,4 @@ public class Moby {
         }
     }
 }
+
